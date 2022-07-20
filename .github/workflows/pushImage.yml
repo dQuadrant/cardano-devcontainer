@@ -35,11 +35,25 @@ jobs:
       - name: Use tag
         run: echo 
       -
-        name: Build and push
+        name: Build arm64 image
         uses: docker/build-push-action@v3
         with:
           file: devContainer.Dockerfile
           context: .
-          platforms: linux/amd64,linux/arm64
+          platforms: inux/arm64
+          tags: dquadrant/cardano-devcontainer:${{steps.tag.outputs.tag}}-arm64
+      -
+        name: Build amd64 image
+        uses: docker/build-push-action@v3
+        with:
+          file: devContainer.Dockerfile
+          context: .
+          platforms: inux/amd64
+          tags: dquadrant/cardano-devcontainer:${{steps.tag.outputs.tag}}-amd64
+      - 
+        name: Create and push manifest images
+        uses: Noelware/docker-manifest-action@master # or use whatever version.
+        with:
+          base-image: dquadrant/cardano-devcontainer:${{steps.tag.outputs.tag}}
+          extra-images: dquadrant/cardano-devcontainer:${{steps.tag.outputs.tag}}-amd64,dquadrant/cardano-devcontainer:${{steps.tag.outputs.tag}}-arm64
           push: true
-          tags: dquadrant/cardano-devcontainer:${{steps.tag.outputs.tag}}
