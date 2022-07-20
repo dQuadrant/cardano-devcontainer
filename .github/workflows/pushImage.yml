@@ -40,7 +40,7 @@ jobs:
         with:
           file: devContainer.Dockerfile
           context: .
-          platforms: inux/arm64
+          platforms: linux/arm64
           tags: dquadrant/cardano-devcontainer:${{steps.tag.outputs.tag}}-arm64
       -
         name: Build amd64 image
@@ -48,7 +48,7 @@ jobs:
         with:
           file: devContainer.Dockerfile
           context: .
-          platforms: inux/amd64
+          platforms: linux/amd64
           tags: dquadrant/cardano-devcontainer:${{steps.tag.outputs.tag}}-amd64
       - 
         name: Create and push manifest images
