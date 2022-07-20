@@ -7,6 +7,8 @@ on:
 
 jobs:
   docker:
+    strategy:
+      max-parallel : 1
     runs-on: ubuntu-latest
     steps:
       -
@@ -35,8 +37,6 @@ jobs:
       -
         name: Build and push
         uses: docker/build-push-action@v3
-        strategy:
-          max-parallel : 1
         with:
           file: devContainer.Dockerfile
           context: .
