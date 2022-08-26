@@ -54,5 +54,7 @@ executable bootstrap-project
         , vector
         , unordered-containers
         , time
+        , cardano-api
+        , plutus-tx
     hs-source-dirs:   app
     default-language: Haskell2010
